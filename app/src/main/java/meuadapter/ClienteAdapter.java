@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.soseletronica.maurolcsilva.soseletronica.R;
 
 import java.util.ArrayList;
 
@@ -40,6 +43,13 @@ public class ClienteAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        View linha = act.getLayoutInflater().inflate(R.layout.listadeclientes_layout,parent,false);
+        TextView nomecliente = (TextView) linha.findViewById(R.id.lblListaNomeCliente);
+        //TextView emailcliente = (TextView) linha.findViewById(R.id.lblListaEmailCliente);
+
+        Cliente c = listadeclientes.get(position);
+        nomecliente.setText(c.getNome());
+        //emailcliente.setText(c.getEmail());
+        return linha;
     }
 }
