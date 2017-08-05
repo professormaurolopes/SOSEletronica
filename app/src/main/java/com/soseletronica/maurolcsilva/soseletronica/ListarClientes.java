@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import meuadapter.ClienteAdapter;
+import modelo.Cliente;
+
 public class ListarClientes extends Activity {
     private ListView listadeclientes;
 
@@ -20,7 +23,7 @@ public class ListarClientes extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_clientes);
         listadeclientes = (ListView) findViewById(R.id.listClientesCadastrados);
-        listadeclientes.setAdapter(retornaConteudodaLista());
+        listadeclientes.setAdapter(retornarClienteAdapter());
     }
 
     public ArrayAdapter<String> retornaConteudodaLista(){
@@ -51,5 +54,45 @@ public class ListarClientes extends Activity {
         //Cria o ArrayAdapter que irá mostrar os dados na ListView
         itensdalista = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,itens);
         return itensdalista;
+    }
+    public ClienteAdapter retornarClienteAdapter(){
+        //Criacao das variáveis que irão guardar os dados vindos do banco de dados
+        String nome, email, telefone;
+        int idcliente;
+        //Adapter que será utilizado para carregar os dados no ListView
+        ClienteAdapter clienteadapter;
+        //Lista dos dados dos clientes
+        ArrayList<Cliente> itensclientes = new ArrayList<Cliente>();
+
+        //Abertura do Banco de Dados
+        SQLiteDatabase dbReparo = openOrCreateDatabase("bdreparoemcasa.db", Context.MODE_PRIVATE,null);
+
+        //Montagem do SQL para SELECT
+        String sql_select = "select * from clientes";
+        //Execução da Consulta
+        Cursor res = dbReparo.rawQuery(sql_select,null);
+        while (res.moveToNext()){
+            //0 - coluna de ID
+            idcliente = res.getInt(0);
+            //1 - coluna Nome
+            nome = res.getString(1);
+            //2 - coluna Email
+            email = res.getString(2);
+            //3 - coluna Telefone
+            telefone = res.getString(3);
+
+            Cliente c = new Cliente();
+            c.setNome(nome);
+            c.setEmail(email);
+            c.setTelefone(telefone);
+            c.setIdclientes(idcliente);
+            //Carrega os dados na Lista
+            itensclientes.add(c);
+        }
+        //Cria o ArrayAdapter que irá mostrar os dados na ListView
+        clienteadapter = new ClienteAdapter(this, itensclientes);
+        //itensdalista = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,itens);
+        return clienteadapter;
+
     }
 }

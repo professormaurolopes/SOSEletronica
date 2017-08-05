@@ -9,5 +9,15 @@
         android:layout_alignParentTop="true"
         android:text="nome do cliente"
         android:textSize="18sp"
+        android:layout_marginLeft="5dp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/lblListaEmailCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblListaNomeCliente"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="email do cliente" />
 </RelativeLayout>
