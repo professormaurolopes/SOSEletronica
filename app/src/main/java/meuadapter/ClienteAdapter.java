@@ -45,11 +45,11 @@ public class ClienteAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View linha = act.getLayoutInflater().inflate(R.layout.listadeclientes_layout,parent,false);
         TextView nomecliente = (TextView) linha.findViewById(R.id.lblListaNomeCliente);
-        //TextView emailcliente = (TextView) linha.findViewById(R.id.lblListaEmailCliente);
+        TextView emailcliente = (TextView) linha.findViewById(R.id.lblListaEmailCliente);
 
         Cliente c = listadeclientes.get(position);
         nomecliente.setText(c.getNome());
-        //emailcliente.setText(c.getEmail());
+        emailcliente.setText(c.getEmail());
         return linha;
     }
 }
